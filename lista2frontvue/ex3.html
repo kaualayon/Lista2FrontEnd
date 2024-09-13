@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Dinâmica com Vue.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .item {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            border-radius: 5px;
+            width: 200px;
+            text-align: center;
+        }
+        button {
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        input {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container">
+        <input v-model="newItem" @keyup.enter="addItem" placeholder="Digite um novo item">
+        <ul>
+            <li v-for="(item, index) in items" :key="index" class="item" @click="removeItem(index)">
+                {{ item }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                newItem: '',
+                items: []
+            },
+            methods: {
+                addItem() {
+                    if (this.newItem.trim() !== '') {
+                        this.items.push(this.newItem);
+                        this.newItem = '';
+                    }
+                },
+                removeItem(index) {
+                    this.items.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
